@@ -88,6 +88,7 @@ public class EditIndividualBucket extends AppCompatActivity {
             maxCashText.setText(Integer.valueOf(intent.getIntExtra("maxCash", 0)).toString());
         }
 
+        nameText.requestFocus();
     }
 
     @Override
