@@ -13,13 +13,10 @@ import android.widget.Toast;
 
 public class EditIndividualBucket extends AppCompatActivity {
     String tagFromMain;
+    EditText maxCashText;
+    EditText nameText;
 
     public void updateBucket(View view) {
-
-        EditText maxCashText = (EditText) findViewById(R.id.maxCashEditText);
-        EditText nameText = (EditText) findViewById(R.id.nameEditText);
-
-
 
         if (nameText.getText().toString().isEmpty()){
             Toast.makeText(this, "Enter name", Toast.LENGTH_SHORT).show();
@@ -79,11 +76,16 @@ public class EditIndividualBucket extends AppCompatActivity {
         int bucketNumber = Integer.valueOf(tagFromMain) + 1;
 
         TextView bucketID = (TextView) findViewById(R.id.bucketIDTextView);
+        maxCashText = (EditText) findViewById(R.id.maxCashEditText);
+        nameText = (EditText) findViewById(R.id.nameEditText);
+
 
         if (intent.getStringExtra("name") == null){
             bucketID.setText("Priority : " + bucketNumber);
         } else {
             bucketID.setText("Priority : " + bucketNumber + "\n" + intent.getStringExtra("name"));
+            nameText.setText(intent.getStringExtra("name"));
+            maxCashText.setText(Integer.valueOf(intent.getIntExtra("maxCash", 0)).toString());
         }
 
     }

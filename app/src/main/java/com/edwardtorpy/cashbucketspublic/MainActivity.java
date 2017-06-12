@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         Intent editBucketIntent = new Intent(getApplicationContext(), EditIndividualBucket.class);
         editBucketIntent.putExtra("tag", view.getTag().toString());
         editBucketIntent.putExtra("name", buckets.get(Integer.valueOf(view.getTag().toString())).bucketName);
+        editBucketIntent.putExtra("maxCash", buckets.get(Integer.valueOf(view.getTag().toString())).maxCash);
 
         startActivity(editBucketIntent);
 
