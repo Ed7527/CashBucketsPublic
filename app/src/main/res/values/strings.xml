@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">CashBuckets Public</string>
+
+        <string-array name="frequency_array">
+
+            <item>Daily</item>
+            <item>Weekly</item>
+            <item>Fortnightly</item>
+            <item>Monthly</item>
+            <item>Yearly</item>
+
+        </string-array>
+
+</resources>
