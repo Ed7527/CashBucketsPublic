@@ -84,6 +84,10 @@ public class EditIndividualBucket extends AppCompatActivity {
         int bucketNumber = Integer.valueOf(tagFromMain) + 1;
 
         TextView bucketID = (TextView) findViewById(R.id.bucketIDTextView);
+
+        TextView quoteTextView = (TextView) findViewById(R.id.quoteTextView);
+        quoteTextView.setText(intent.getStringExtra("quote"));
+
         maxCashText = (EditText) findViewById(R.id.maxCashEditText);
         nameText = (EditText) findViewById(R.id.nameEditText);
 
@@ -94,9 +98,11 @@ public class EditIndividualBucket extends AppCompatActivity {
             bucketID.setText("Priority : " + bucketNumber + "\n" + intent.getStringExtra("name"));
             nameText.setText(intent.getStringExtra("name"));
             maxCashText.setText(Integer.valueOf(intent.getIntExtra("maxCash", 0)).toString());
+
         }
 
         nameText.requestFocus();
+
     }
 
     @Override
