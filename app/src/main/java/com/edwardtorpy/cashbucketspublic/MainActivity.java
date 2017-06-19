@@ -23,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
 
     Intent userIntent;
 
+    EditText totalCashEditText;
+
     ArrayList<Bucket> buckets;
     SQLiteDatabase bucketData;
     SharedPreferences savedTotalCash;
@@ -146,6 +148,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void resetBucketsToZero() {
+        for(int bucket = 0; bucket <buckets.size(); bucket++){
+            buckets.get(bucket).bucketName = null;
+            buckets.get(bucket).currentCash = 0;
+            buckets.get(bucket).maxCash = 0;
+        }
+    }
+
     public void resetAllToZero () {
         Toast.makeText(this, "reset function in progress", Toast.LENGTH_SHORT).show();
 
@@ -159,6 +169,10 @@ public class MainActivity extends AppCompatActivity {
             bucketData.execSQL(updateMaxCashCommand);
         }
 
+        savedTotalCash.edit().putInt("totalCash", 0).apply();
+        totalCashEditText.setHint("Enter total funds available");
+
+        resetBucketsToZero();
         calculateResults();
         editEveryBucketText();
     }
@@ -184,15 +198,15 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    /*@Override
+    @Override
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.main_menu, menu);
+        menuInflater.inflate(R.menu.menu, menu);
 
         return super.onCreateOptionsMenu(menu);
-    }*/
+    }
 
-    /*@Override
+    @Override
     public boolean onOptionsItemSelected(MenuItem menuItem) {
         super.onOptionsItemSelected(menuItem);
 
@@ -210,7 +224,7 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return false;
         }
-    }*/
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -218,7 +232,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         savedTotalCash = this.getSharedPreferences("com.edwardtorpy.cashbuckets", Context.MODE_PRIVATE);
-        EditText totalCashEditText = (EditText) findViewById(R.id.totalCashEditText);
+        totalCashEditText = (EditText) findViewById(R.id.totalCashEditText);
         if (savedTotalCash.getInt("totalCash", 0) == 0){
             totalCashEditText.setHint("Enter total funds available");
         } else {
