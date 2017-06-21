@@ -322,15 +322,7 @@ class EssentialBucket extends Bucket {
         quotes.add(0, "first random essential quote!!");
         quotes.add(1, "2 essential quote!!");
         quotes.add(2, "3 essential quote!!");
-        quotes.add(3, "4 random essential quote!!");
-        quotes.add(4, "5 essential quote!!");
-        quotes.add(5, "6 essential quote!!");
-        quotes.add(6, "7 random essential quote!!");
-        quotes.add(7, "8 essential quote!!");
-        quotes.add(8, "9 essential quote!!");
-        quotes.add(9, "10 random essential quote!!");
-        quotes.add(10, "11 essential quote!!");
-        quotes.add(11, "12 essential quote!!");
+
 
         Random rand = new Random();
         return quotes.get(rand.nextInt(quotes.size()));
@@ -338,22 +330,13 @@ class EssentialBucket extends Bucket {
 }
 
 class SingleUseBucket extends Bucket {
-    //ToDo implement specific Single Use methods
+
     @Override
     public String getQuote () {
         ArrayList<String> quotes = new ArrayList<>();
         quotes.add(0, "first single essential quote!!");
         quotes.add(1, "2 single quote!!");
         quotes.add(2, "3 single quote!!");
-        quotes.add(3, "4 single essential quote!!");
-        quotes.add(4, "5 single quote!!");
-        quotes.add(5, "6 single quote!!");
-        quotes.add(6, "7 single essential quote!!");
-        quotes.add(7, "8 single quote!!");
-        quotes.add(8, "9 single quote!!");
-        quotes.add(9, "10  single quote!!");
-        quotes.add(10, "11 single quote!!");
-        quotes.add(11, "12 single quote!!");
 
         Random rand = new Random();
         return quotes.get(rand.nextInt(quotes.size()));
@@ -361,22 +344,13 @@ class SingleUseBucket extends Bucket {
 }
 
 class RegularBucket extends Bucket {
-    //ToDo implement specific Single Use methods
+
     @Override
     public String getQuote () {
         ArrayList<String> quotes = new ArrayList<>();
         quotes.add(0, "first regular quote!!");
         quotes.add(1, "2 regular quote!!");
         quotes.add(2, "3 regular quote!!");
-        quotes.add(3, "4 regular essential quote!!");
-        quotes.add(4, "5 regular quote!!");
-        quotes.add(5, "6 regular quote!!");
-        quotes.add(6, "7 regular essential quote!!");
-        quotes.add(7, "8 regular quote!!");
-        quotes.add(8, "9 regular quote!!");
-        quotes.add(9, "10  regular quote!!");
-        quotes.add(10, "11 regular quote!!");
-        quotes.add(11, "12 regular quote!!");
 
         Random rand = new Random();
         return quotes.get(rand.nextInt(quotes.size()));
