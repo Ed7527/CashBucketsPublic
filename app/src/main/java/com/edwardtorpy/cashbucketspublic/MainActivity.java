@@ -1,10 +1,12 @@
 package com.edwardtorpy.cashbucketspublic;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -22,12 +24,10 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
 
     Intent userIntent;
-
-    EditText totalCashEditText;
-
     ArrayList<Bucket> buckets;
     SQLiteDatabase bucketData;
     SharedPreferences savedTotalCash;
+    EditText totalCashEditText;
     int reserveCash;
 
     public void openEditBucketActivity(View view) {
@@ -52,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Enter a number!", Toast.LENGTH_SHORT).show();
         } else {
             savedTotalCash.edit().putInt("totalCash", Integer.valueOf(totalCashText.getText().toString())).apply();
+            totalCashText.setHint(" $" + totalCashText.getText().toString()+ " total");
+            totalCashText.setText("");
         }
 
         calculateResults();
@@ -157,7 +159,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void resetAllToZero () {
-        Toast.makeText(this, "reset function in progress", Toast.LENGTH_SHORT).show();
 
         for (int sqlBucket = 1; sqlBucket < buckets.size(); sqlBucket++){
             System.out.println(sqlBucket);
@@ -175,6 +176,8 @@ public class MainActivity extends AppCompatActivity {
         resetBucketsToZero();
         calculateResults();
         editEveryBucketText();
+
+        Toast.makeText(this, "Cash Buckets has been reset", Toast.LENGTH_SHORT).show();
     }
 
     public void createBuckets(ArrayList<Bucket> buckets) {
@@ -217,8 +220,19 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.reset:
-                //ToDo create method to reset all buckets
-                resetAllToZero();
+                new AlertDialog.Builder(this)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("Reset app")
+                        .setMessage("This will set everything back to zero, are you sure?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                resetAllToZero();
+                            }
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
+
                 return true;
 
             default:
@@ -254,7 +268,7 @@ public class MainActivity extends AppCompatActivity {
 
             Cursor cursor = bucketData.rawQuery("SELECT * FROM bucketTable", null);
 
-            int bucketNameindex = cursor.getColumnIndex("bucketName");
+            int bucketNameIndex = cursor.getColumnIndex("bucketName");
             int maxCashIndex = cursor.getColumnIndex("maxCash");
             int currentCashIndex = cursor.getColumnIndex("currentCash");
 
@@ -262,14 +276,14 @@ public class MainActivity extends AppCompatActivity {
 
                 buckets.get(0).currentCash = cursor.getInt(currentCashIndex);
                 buckets.get(0).maxCash = cursor.getInt(maxCashIndex);
-                buckets.get(0).bucketName = cursor.getString(bucketNameindex);
+                buckets.get(0).bucketName = cursor.getString(bucketNameIndex);
 
                 int counter = 1;
                 while (cursor.moveToNext()) {
 
                     buckets.get(counter).currentCash = cursor.getInt(currentCashIndex);
                     buckets.get(counter).maxCash = cursor.getInt(maxCashIndex);
-                    buckets.get(counter).bucketName = cursor.getString(bucketNameindex);
+                    buckets.get(counter).bucketName = cursor.getString(bucketNameIndex);
                     counter++;
                 }
 
